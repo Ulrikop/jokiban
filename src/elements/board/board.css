@@ -1,0 +1,18 @@
+.board {
+  display: inline-block;
+  border: 3px solid black;
+}
+
+.board {
+  position: relative;
+}
+
+.row {
+  display: flex;
+}
+
+.square {
+  width: 70px;
+  height: 70px;
+  border: 1px solid black;
+}

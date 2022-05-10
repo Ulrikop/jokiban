@@ -1,0 +1,10 @@
+.box {
+  width: 66%;
+  height: 66%;
+  border-radius: 25%;
+  background-color: #654321;
+}
+
+.box.solved {
+  background-color: #0A0;
+}

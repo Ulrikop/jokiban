@@ -1,0 +1,29 @@
+.board.solved {
+  opacity: 0.2;
+}
+
+.solved-message {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.solved-message.solved-enter-active {
+  animation: grow 1s linear;
+}
+
+
+@keyframes grow {
+  0% {
+    font-size: 0vh;
+  }
+  100% {
+    font-size: 300vh;
+  }
+}

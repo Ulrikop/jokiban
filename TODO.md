@@ -1,0 +1,4 @@
+- Add linter
+- Add styling for wall/player/box/goal
+- Add list for loading levels
+- Add list of last done steps + undo

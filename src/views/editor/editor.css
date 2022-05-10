@@ -1,0 +1,84 @@
+.editor {
+  --tool-size: 25px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.board-editor {
+  display: inline-block;
+}
+
+.board-editor .column-toolbar {
+  margin-left: var(--tool-size);
+  height: var(--tool-size);
+  display: flex;
+}
+
+.board-editor .board-container {
+  display: flex;
+}
+
+.board-editor .row-toolbar {
+  width: var(--tool-size);
+  display: flex;
+  flex-direction: column;
+}
+
+.board-editor .column-toolbar .column-tool,
+.board-editor .row-toolbar .row-tool {
+  flex: 1 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.board-editor .row-toolbar .row-tool {
+  flex-direction: column;
+}
+
+.board-editor .column-toolbar .column-tool:not(:first-of-type) .insert-before ,
+.board-editor .row-toolbar .row-tool:not(:first-of-type) .insert-before {
+  /* the element is not removed from dom, but is resized so that the remove button is still centered */
+  visibility: hidden;
+  width: calc(var(--tool-size) / 2);
+  height: calc(var(--tool-size) / 2);
+}
+
+.insert-before, .insert-after, .remove {
+  width: var(--tool-size);
+  height: var(--tool-size);
+}
+
+.column-tool .insert-after {
+  margin-right: calc(-1 * calc(var(--tool-size) / 2));
+}
+
+
+.row-tool .insert-after {
+  margin-bottom: calc(-1 * calc(var(--tool-size) / 2));
+}
+
+.board-editor .column-toolbar > *,
+.board-editor .row-toolbar > * {
+  opacity: 0;
+  transition: opacity 0.5s 1s;
+}
+
+.board-editor .column-toolbar:hover > *,
+.board-editor .row-toolbar:hover > * {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.result .title {
+  font-weight: bold;
+}
+
+.result .content {
+  background-color: #DDD;
+  border-radius: 5px;
+  border: 2px solid #000;
+  padding: 8px;
+  margin: 8px;
+}

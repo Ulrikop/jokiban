@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="app.css" />
+
+    <link rel="stylesheet" href="elements/board/board.css" />
+    <link rel="stylesheet" href="elements/box/box.css" />
+    <link rel="stylesheet" href="elements/player/player.css" />
+    <link rel="stylesheet" href="elements/square/square.css" />
+    <link rel="stylesheet" href="elements/square-editable/square-editable.css" />
+
+    <link rel="stylesheet" href="views/editor/editor.css" />
+    <link rel="stylesheet" href="views/game/game.css" />
+
+    <script src="assets/lodash.js"></script>
+    <script src="assets/vue.js"></script>
+    <script src="app.js" type="module"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="app-header">JoKiBan</div>
+      <div class="app-content">
+        <div>
+          <button
+            v-for="tab in tabs"
+            :key="tab"
+            :class="['tab-button', { active: currentTab === tab }]"
+            @click="currentTab = tab"
+          >
+            {{ tab }}
+          </button>
+        </div>
+
+        <component :is="currentTab" class="tab" :level="level"></component>
+      </div>
+      <div class="app-footer"></div>
+    </div>
+  </body>
+</html>
