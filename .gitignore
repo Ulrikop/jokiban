@@ -1,0 +1,7 @@
+.npmrc
+/dist
+/tmp
+/out-tsc
+/node_modules
+
+foo.txt

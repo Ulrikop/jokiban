@@ -1,9 +1,27 @@
 .editor {
   --tool-size: 25px;
 
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.play-buttons {
+  position: absolute;
+  height: 25px;
+  left: 5px;
+  top: 5px;
+}
+
+.play-buttons .button {
+  height: 100%;
+}
+
+.board-playing {
+  display: inline-block;
+  margin-left: var(--tool-size);
+  margin-top: var(--tool-size);
 }
 
 .board-editor {
@@ -59,9 +77,9 @@
   margin-bottom: calc(-1 * calc(var(--tool-size) / 2));
 }
 
-.board-editor .column-toolbar > *,
-.board-editor .row-toolbar > * {
-  opacity: 0;
+.board-editor .column-toolbar > .column-tool,
+.board-editor .row-toolbar > .row-tool {
+  opacity: 0.3;
   transition: opacity 0.5s 1s;
 }
 
@@ -81,4 +99,21 @@
   border: 2px solid #000;
   padding: 8px;
   margin: 8px;
+  white-space: pre-wrap;
+}
+
+.button {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+
+.button.disabled {
+  cursor: unset;
+  pointer-events: none;
+  opacity: 0.3;
 }

@@ -1,5 +1,10 @@
 # JoKiBan
 
+JoKiBan is a Sokoban game with a level editor.
+
+The project avoids a build environment
+so that it is as easy as possible to change the code without the requirement to install something like node.
+
 ## Terms
 
 Terms are used from [sokoban wiki]:

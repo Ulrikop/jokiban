@@ -1,6 +1,6 @@
 import Square from '../square/square.js';
 import SquareEditable from '../square-editable/square-editable.js';
-import { Level } from '../../components/level.js';
+import { Level } from '../../components/levels/level.js';
 
 export default {
   components: {
@@ -27,7 +27,7 @@ export default {
 <div class="board">
   <div class="row" v-for="(_, row) in level.rowCount">
     <div class="square" v-for="(_, column) in level.columnCount">
-    <component :is="editMode? 'square-editable' : 'square' " :type="level.getSquare({row, column})" :ref="'square-' + row + '/' + column" @change-type="squareType => changeType({row, column}, squareType)"></component>
+      <component :is="editMode? 'square-editable' : 'square' " :type="level.getSquare({row, column})" :ref="'square-' + row + '/' + column" @change-type="squareType => changeType({row, column}, squareType)"></component>
     </div>
   </div>
   <slot></slot>

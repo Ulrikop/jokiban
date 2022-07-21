@@ -1,16 +1,16 @@
 import { SquareType } from './squareType.js';
 
-export class SokobanGame {
+export class JoKiBanGame {
   constructor(level) {
-    this.level = level;
-    this.playable = !level.errors;
-
-    if (this.playable) {
-      this.playerPosition = this.level.playerPosition;
-      this.boxes = this.level.boxes.map((position, index) => {
-        return { id: index, position, solved: false };
-      });
+    if (level.errors) {
+      throw new Error(`Failed to create game because level has errors: ${level.errors.join('\n')}`);
     }
+
+    this.level = level;
+    this.playerPosition = this.level.playerPosition;
+    this.boxes = this.level.boxes.map((position, index) => {
+      return { id: index, position, solved: false };
+    });
   }
 
   go(step) {

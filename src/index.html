@@ -5,9 +5,12 @@
 
     <link rel="stylesheet" href="elements/board/board.css" />
     <link rel="stylesheet" href="elements/box/box.css" />
+    <link rel="stylesheet" href="elements/level-selector/level-selector.css" />
     <link rel="stylesheet" href="elements/player/player.css" />
-    <link rel="stylesheet" href="elements/square/square.css" />
+    <link rel="stylesheet" href="elements/game-level/game-level.css" />
+    <link rel="stylesheet" href="elements/spinner/spinner.css" />
     <link rel="stylesheet" href="elements/square-editable/square-editable.css" />
+    <link rel="stylesheet" href="elements/square/square.css" />
 
     <link rel="stylesheet" href="views/editor/editor.css" />
     <link rel="stylesheet" href="views/game/game.css" />
@@ -31,7 +34,7 @@
           </button>
         </div>
 
-        <component :is="currentTab" class="tab" :level="level"></component>
+        <component :is="currentTab" class="tab"></component>
       </div>
       <div class="app-footer"></div>
     </div>

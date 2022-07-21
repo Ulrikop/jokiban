@@ -1,13 +1,14 @@
 import { LevelInvalidationReason } from './levelInvalidationReason.js';
-import { SquareType } from './squareType.js';
+import { SquareType } from '../squareType.js';
 
 export class Level {
-  constructor(squares = []) {
-    this.assertValidSquares(squares);
+  constructor(name = 'unsaved', { board } = { board: [[SquareType.Empty]] }) {
+    this.assertValidBoard(board);
 
-    this.squares = squares;
-    this.rowCount = squares.length;
-    this.columnCount = this.rowCount > 1 ? squares[0].length : 0;
+    this.name = name;
+    this.board = [...board];
+    this.rowCount = board.length;
+    this.columnCount = this.rowCount > 0 ? board[0].length : 0;
 
     this.onChanged();
   }
@@ -15,7 +16,7 @@ export class Level {
   get playerPosition() {
     for (let row = 0; row < this.rowCount; ++row) {
       for (let column = 0; column < this.columnCount; ++column) {
-        if (this.squares[row][column] === SquareType.Player) {
+        if (this.board[row][column] === SquareType.Player) {
           return { row, column };
         }
       }
@@ -29,13 +30,21 @@ export class Level {
 
     for (let row = 0; row < this.rowCount; ++row) {
       for (let column = 0; column < this.columnCount; ++column) {
-        if (this.squares[row][column] === SquareType.Box) {
+        if (this.board[row][column] === SquareType.Box) {
           boxes.push({ row, column });
         }
       }
     }
 
     return boxes;
+  }
+
+  serialize() {
+    return `{
+  board: [
+    ${this.board.map(row => JSON.stringify(row)).join(',\n    ')}
+  ]
+}`;
   }
 
   isAccessible(position) {
@@ -45,11 +54,11 @@ export class Level {
   }
 
   getSquare({ row, column }) {
-    return row < this.rowCount ? this.squares[row][column] : undefined;
+    return row < this.rowCount ? this.board[row][column] : undefined;
   }
 
   insertRowAt(pos) {
-    this.squares.splice(
+    this.board.splice(
       pos,
       0,
       _.times(this.columnCount, () => SquareType.Empty)
@@ -61,7 +70,7 @@ export class Level {
   }
 
   removeRowAt(pos) {
-    this.squares.splice(pos, 1);
+    this.board.splice(pos, 1);
 
     --this.rowCount;
 
@@ -69,7 +78,7 @@ export class Level {
   }
 
   insertColumnAt(pos) {
-    for (const row of this.squares) {
+    for (const row of this.board) {
       row.splice(pos, 0, SquareType.Empty);
     }
 
@@ -79,7 +88,7 @@ export class Level {
   }
 
   removeColumnAt(pos) {
-    for (const row of this.squares) {
+    for (const row of this.board) {
       row.splice(pos, 1);
     }
 
@@ -89,7 +98,7 @@ export class Level {
   }
 
   changeType({ row, column }, squareType) {
-    this.squares[row][column] = squareType;
+    this.board[row][column] = squareType;
 
     this.onChanged();
   }
@@ -101,7 +110,7 @@ export class Level {
 
   validate() {
     const errors = {};
-    const squareTypeCounts = this.sumSquareTypes(this.squares);
+    const squareTypeCounts = this.sumSquareTypes(this.board);
 
     if (squareTypeCounts[SquareType.Box] === 0) {
       errors[LevelInvalidationReason.NoBoxes] = true;
@@ -120,10 +129,10 @@ export class Level {
     return _.isEmpty(errors) ? undefined : errors;
   }
 
-  sumSquareTypes(squares) {
+  sumSquareTypes(board) {
     const result = _.fromPairs(_.map(SquareType, type => [type, 0]));
 
-    for (const row of squares) {
+    for (const row of board) {
       for (const column of row) {
         if (!(column in result)) {
           throw new Error(`Unknown square type ${column}`);
@@ -136,15 +145,15 @@ export class Level {
     return result;
   }
 
-  assertValidSquares(squares) {
-    const columnCountValid = squares.every((row, index) => {
-      return index === 0 || row.length === squares[index - 1].length;
+  assertValidBoard(board) {
+    const columnCountValid = board.every((row, index) => {
+      return index === 0 || row.length === board[index - 1].length;
     });
 
     if (!columnCountValid) {
-      const squaresHumanized = JSON.stringify(squares.map(row => row.join(', ')).join('//'));
+      const boardHumanized = JSON.stringify(board.map(row => row.join(', ')).join('//'));
 
-      throw new Error(`Column count of rows differs (${squaresHumanized})`);
+      throw new Error(`Invalid board: Column count of rows differs (${boardHumanized})`);
     }
   }
 }
