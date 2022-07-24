@@ -1,5 +1,6 @@
 - Add linter
 - Add styling for wall/player/box/goal (support 'common skin format' skin files found at http://sokoban.dk/skins/skins-the-download-page/)
 - Add list for loading levels
+- Support level files in standard level format (http://sokobano.de/wiki/index.php?title=Level_format)
 - Add list of last done steps + undo
 - Add counter for moves/pushes/changes
